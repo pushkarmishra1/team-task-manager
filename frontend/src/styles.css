@@ -1,0 +1,60 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select, textarea, button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.task {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: white;
+}
+
+.overdue {
+  border-color: red;
+}
+
+.dashboard {
+  display: flex;
+  gap: 20px;
+}
+
+.tasks, .overdue, .create-task {
+  flex: 1;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
