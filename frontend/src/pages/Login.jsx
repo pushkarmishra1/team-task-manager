@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import api from '../services/api';
+import taskImage from '../assets/task.png';
 
 function Login({ onLogin, onSwitchToRegister }) {
   const [email, setEmail] = useState('');
@@ -7,16 +8,15 @@ function Login({ onLogin, onSwitchToRegister }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await api.post('/auth/login', { email, password });
+      const res = await api.post('/auth/login', {
+        email,
+        password,
+      });
 
-      console.log("LOGIN RESPONSE:", res.data);
-    //   console.log("USER:", res.data.user);
-
-      // 🔥 TOKEN SAVE
       localStorage.setItem("token", res.data.token);
 
-      // optional
       if (onLogin) {
         onLogin(res.data.token, res.data.user);
       }
@@ -24,38 +24,54 @@ function Login({ onLogin, onSwitchToRegister }) {
       alert("Login success");
 
     } catch (err) {
-      console.log("LOGIN ERROR:", err.response?.data);
-      alert('Login failed');
+      alert("Login failed");
     }
   };
 
   return (
-    <div className="container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+    <div className="auth-wrapper">
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      <div className="auth-card">
 
-        <button type="submit">Login</button>
-      </form>
+        <h1 className="logo">Orbitask</h1>
 
-      <p>
-        Don't have an account?{" "}
-        <button onClick={onSwitchToRegister}>Register</button>
-      </p>
+        <img src={taskImage} alt="task" className="auth-image" />
+
+        <h2>Welcome Back</h2>
+
+        <form onSubmit={handleSubmit}>
+
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit">
+            Log In
+          </button>
+
+        </form>
+
+        <p>
+          New User?
+          <span onClick={onSwitchToRegister}>
+            Sign Up
+          </span>
+        </p>
+
+      </div>
+
     </div>
   );
 }
